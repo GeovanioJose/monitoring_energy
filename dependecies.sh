@@ -42,9 +42,9 @@ COMPILE_PODMAN() {
 
   cd ~ || exit 1
   #Addes go lang
-  wget https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
-  tar -xzf go1.22.4.linux-amd64.tar.gz -C /usr/local
-  rm go1.22.4.linux-amd64.tar.gz
+  wget https://go.dev/dl/go1.26.1.linux-amd64.tar.gz
+  tar -xzf go1.26.1.linux-amd64.tar.gz -C /usr/local
+  rm go1.26.1.linux-amd64.tar.gz
   echo "export PATH=\$PATH:/usr/local/go/bin" >> $HOME/.profile
   export PATH=$PATH:/usr/local/go/bin
 
@@ -73,7 +73,7 @@ EOF
 
   git clone https://github.com/containers/podman/
   cd podman || exit 1
-  git checkout v5.1
+  git checkout v5.6
   make BUILDTAGS="selinux seccomp exclude_graphdriver_devicemapper systemd" PREFIX=/usr
   make install PREFIX=/usr
 
