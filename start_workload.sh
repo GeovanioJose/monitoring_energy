@@ -33,7 +33,7 @@ for i in {1..5}; do
         -l "$CURRENT_LOG" \
         -Jusers="$NUM_USERS" \
         -Jrampup="$RAMP_UP" \
-        -Jhost="$HOST_IP" \
+        -Jhostname="$HOST_IP" \
         -Jport="$PORT" \
         -Jfilename="$CURRENT_LOG" &
     
