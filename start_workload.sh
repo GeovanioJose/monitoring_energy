@@ -12,7 +12,7 @@ readonly NUM_USERS=100
 readonly RAMP_UP=60
 readonly HOST_IP="192.168.0.105"
 readonly PORT=8080
-readonly FILE_NAME="logs.csv"
+readonly FILE_PREFIX="logs_cycle"
 readonly JMX_FILE="seu_test_plan.jmx" # <-- Defina o caminho do seu arquivo .jmx aqui
 
 # Loop de 1 a 5 usando expansão de chaves {1..5}
