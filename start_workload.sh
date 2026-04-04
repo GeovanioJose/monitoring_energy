@@ -8,7 +8,7 @@ set -euo pipefail
 
 # Variáveis fornecidas
 readonly JMETER_PATH="/home/jojema/Transferências/apache-jmeter-5.6.3/bin/jmeter"
-readonly NUM_USERS=50
+readonly NUM_USERS=100
 readonly RAMP_UP=60
 readonly HOST_IP="192.168.0.105"
 readonly PORT=8080
@@ -17,11 +17,11 @@ readonly JMX_FILE="seu_test_plan.jmx" # <-- Defina o caminho do seu arquivo .jmx
 
 # Loop de 1 a 5 usando expansão de chaves {1..5}
 for i in {1..5}; do
-    echo "=========================================="
     echo "Iniciando Ciclo $i de 5"
-    echo "Data/Hora: $(date '+%Y-%m-%d %H:%M:%S')"
-    echo "=========================================="
 
+    # Criamos o nome do arquivo único para este ciclo
+    CURRENT_LOG="${FILE_PREFIX}_${i}.csv"
+    
     # 1. Espera 10 minutos sem workload
     echo "Aguardando 10 minutos de repouso..."
     sleep 10m
@@ -31,11 +31,12 @@ for i in {1..5}; do
     
     # Executando JMeter no modo No-GUI (-n)
     "$JMETER_PATH" -n -t "$JMX_FILE" \
-        -l "$FILE_NAME" \
+        -l "$CURRENT_LOG" \
         -Jusers="$NUM_USERS" \
         -Jrampup="$RAMP_UP" \
         -Jhost="$HOST_IP" \
-        -Jport="$PORT" &
+        -Jport="$PORT" \
+        -Jfilename="$CURRENT_LOG" &
     
     # Captura o PID (Process ID) do último comando enviado para background
     WORKLOAD_PID=$!
