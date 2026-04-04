@@ -13,8 +13,7 @@ readonly RAMP_UP=60
 readonly HOST_IP="192.168.0.105"
 readonly PORT=8080
 readonly FILE_PREFIX="logs_cycle"
-readonly JMX_FILE="seu_test_plan.jmx" # <-- Defina o caminho do seu arquivo .jmx aqui
-
+readonly JMX_FILE= "teastore_browse_nogui.jmx"
 # Loop de 1 a 5 usando expansão de chaves {1..5}
 for i in {1..5}; do
     echo "Iniciando Ciclo $i de 5"
