@@ -39,7 +39,7 @@ while [ $(date +%s) -lt $END_TIME ]; do
     uncore_after=$(sudo cat /sys/class/powercap/intel-rapl:0/intel-rapl:0:1/energy_uj)
     dram_after=$(sudo cat /sys/class/powercap/intel-rapl:0/intel-rapl:0:2/energy_uj)
 
-    cpu_temp=$(cat /sys/class/thermal/thermal_zone1/temp)
+    cpu_temp=$(cat /sys/class/thermal/thermal_zone2/temp)
 
     package=$(echo "($package_after - $package_before)" | bc)
     core=$(echo "($core_after - $core_before)" | bc)
@@ -50,7 +50,6 @@ while [ $(date +%s) -lt $END_TIME ]; do
     timestamp=$(date +'%Y-%m-%dT%H:%M:%S')
 
     echo "$timestamp,$total,$package,$core,$uncore,$dram,$cpu_temp" >> "$ENERGY_OUT"
-    echo -e "  amostra $SAMPLE | total: ${total} uJ | temp: ${cpu_temp}"
     (( SAMPLE++ ))
 done
 

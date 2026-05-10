@@ -60,9 +60,6 @@ async def main():
 
     print("Iniciando experimento...\n")
 
-    inicio = time.time()
-    limite = TEMPO_TOTAL_HORAS * 3600
-
     kwh_total = 0
     contador = 0
 

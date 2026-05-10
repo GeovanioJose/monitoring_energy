@@ -14,6 +14,25 @@ readonly HOST_IP="192.168.0.105"
 readonly PORT=8080
 readonly FILE_PREFIX="logs_cycle"
 readonly JMX_FILE="teastore_browse_nogui.jmx"
+
+WORKLOAD_PID=""
+
+cleanup() {
+    echo -e "\n\n[INTERRUPÇÃO] Limpando processos..."
+    if [[ -n "$WORKLOAD_PID" ]]; then
+        if kill -0 "$WORKLOAD_PID" 2>/dev/null; then
+            echo "Encerrando JMeter (PID: $WORKLOAD_PID)..."
+            kill "$WORKLOAD_PID"
+        fi
+    fi
+    echo "Teste interrompido. Recursos limpos."
+    exit 0
+}
+
+# Captura sinais de interrupção (Ctrl+C), término e saída do script
+trap cleanup INT TERM EXIT
+
+
 # Loop de 1 a 5 usando expansão de chaves {1..5}
 for i in {1..5}; do
     echo "Iniciando Ciclo $i de 5"
