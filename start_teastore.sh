@@ -29,3 +29,5 @@ $software run -e "REGISTRY_HOST=$ip_address" -e "REGISTRY_PORT=10000" -e "HOST_N
 sleep $sleep_time
 
 $software run -e "REGISTRY_HOST=$ip_address" -e "REGISTRY_PORT=10000" -e "HOST_NAME=$ip_address" -e "SERVICE_PORT=8080" -p 8080:8080 -d --restart=always docker.io/descartesresearch/teastore-webui
+
+sleep $sleep_time
