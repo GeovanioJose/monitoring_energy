@@ -23,6 +23,7 @@ def handle_exit(sig, frame):
     global rodando
     print("\n[Tomada] Sinal de parada recebido. Encerrando...")
     rodando = False
+    sys.exit(0)
 
 
 signal.signal(signal.SIGINT, handle_exit)
