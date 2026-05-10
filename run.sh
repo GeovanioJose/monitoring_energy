@@ -59,6 +59,11 @@ cleanup() {
         kill -SIGINT "$ENERGY_PID" 2>/dev/null && ok "Coleta de energia ($ENERGY_METHOD) encerrada."
     fi
 
+    echo -e "Removendo containers" 
+    
+    podman stop $(podman ps -aq)
+    podman rm $(podman ps -aq)
+
     echo -e "${GREEN}======================================================"
     echo -e " TESTE TERMINOU"
     echo -e " Duração Total: $DURACAO_TESTE ($DURACAO_SEGUNDOS segundos)"
