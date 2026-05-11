@@ -5,21 +5,8 @@
 
 set -uo pipefail
 
-# ── CONFIGURAÇÃO GLOBAL DE TEMPO ─────────────────────────────────────────────
-DURACAO_TESTE="1h" 
 
-converter_para_segundos() {
-    local tempo=$1
-    if [[ $tempo =~ ([0-9]+)h ]]; then
-        echo $((${BASH_REMATCH[1]} * 3600))
-    elif [[ $tempo =~ ([0-9]+)s ]]; then
-        echo ${BASH_REMATCH[1]}
-    else
-        echo $tempo
-    fi
-}
-
-DURACAO_SEGUNDOS=$(converter_para_segundos "$DURACAO_TESTE")
+DURACAO_SEGUNDOS=12600
 
 # ── Cores e Logs ─────────────────────────────────────────────────────────────
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; CYAN='\033[0;36m'; NC='\033[0m'
@@ -60,7 +47,7 @@ cleanup() {
     fi
 
     echo -e "Removendo containers" 
-    
+
     podman stop $(podman ps -aq)
     podman rm $(podman ps -aq)
 
