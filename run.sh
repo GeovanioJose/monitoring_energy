@@ -16,7 +16,7 @@ warn() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC}  $*"; }
 err()  { echo -e "${RED}[$(date '+%H:%M:%S')] [ERRO]${NC} $*" >&2; }
 
 if [[ $# -lt 2 ]]; then
-    err "Uso: $0 <intel-rapl|codecarbon> <docker|podman>"
+    err "Uso: $0 <intel-rapl|coletar_codecarbon> <docker|podman>"
     exit 1
 fi
 
@@ -76,7 +76,7 @@ if [[ "$ENERGY_METHOD" == "intel-rapl" ]]; then
     (cd "$OUTDIR" && bash "$SCRIPT_DIR/intel_rapl.sh" "$DURACAO_SEGUNDOS" 1 "$RAPL_LABEL") &
     ENERGY_PID=$!
 else
-    "$SCRIPT_DIR/.venv/bin/python3" "$SCRIPT_DIR/codecarbon.py" "$CODECARBON_OUT" &
+    "$SCRIPT_DIR/.venv/bin/python3" "$SCRIPT_DIR/coletar_codecarbon.py" "$CODECARBON_OUT" &
     ENERGY_PID=$!
 fi
 
