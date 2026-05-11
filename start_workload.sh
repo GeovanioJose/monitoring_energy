@@ -7,10 +7,10 @@
 set -euo pipefail
 
 # Variáveis fornecidas
-readonly JMETER_PATH="/home/jojema/Transferências/apache-jmeter-5.6.3/bin/jmeter"
+readonly JMETER_PATH="/home/geo/apache-jmeter-5.6.3/bin/jmeter"
 readonly NUM_USERS=100
 readonly RAMP_UP=60
-readonly HOST_IP="192.168.0.105"
+readonly HOST_IP="172.20.96.104"
 readonly PORT=8080
 readonly FILE_PREFIX="logs_cycle"
 readonly JMX_FILE="teastore_browse_nogui.jmx"
@@ -18,14 +18,12 @@ readonly JMX_FILE="teastore_browse_nogui.jmx"
 WORKLOAD_PID=""
 
 cleanup() {
-    echo -e "\n\n[INTERRUPÇÃO] Limpando processos..."
-    if [[ -n "$WORKLOAD_PID" ]]; then
-        if kill -0 "$WORKLOAD_PID" 2>/dev/null; then
-            echo "Encerrando JMeter (PID: $WORKLOAD_PID)..."
-            kill "$WORKLOAD_PID"
-        fi
-    fi
-    echo "Teste interrompido. Recursos limpos."
+    echo -e "\n\n[INTERRUPÇÃO] Realizando limpeza profunda de processos..."
+    # Mata qualquer processo Java que esteja rodando o JMeter
+    # -9 garante a morte; -f procura no comando completo (útil para o nome do JMX)
+    pkill -9 -f "$JMX_FILE" || true
+    pkill -9 -f "ApacheJMeter" || true
+    echo "Recursos limpos. Teste interrompido."
     exit 0
 }
 
@@ -67,12 +65,7 @@ for i in {1..5}; do
     # 4. Mata o workload
     echo "Tempo esgotado. Encerrando processo $WORKLOAD_PID..."
     
-    # Tenta encerrar graciosamente, se não, força
-    if kill -s KILL "$WORKLOAD_PID" 2>/dev/null; then
-        echo "Ciclo $i finalizado com sucesso."
-    else
-        echo "O processo já havia terminado antes do tempo."
-    fi
+   pkill -9 -f "$JMX_FILE" || true
 
 done
 
