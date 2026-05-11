@@ -53,7 +53,6 @@ cleanup() {
 
     echo -e "${GREEN}======================================================"
     echo -e " TESTE TERMINOU"
-    echo -e " Duração Total: $DURACAO_TESTE ($DURACAO_SEGUNDOS segundos)"
     echo -e " Saídas em: $OUTDIR"
     echo -e "======================================================${NC}"
     exit 0
@@ -81,6 +80,6 @@ else
     ENERGY_PID=$!
 fi
 
-log "Experimento rodando por $DURACAO_TESTE..."
+log "Experimento rodando por $DURACAO_SEGUNDOS..."
 sleep "$DURACAO_SEGUNDOS"
 
