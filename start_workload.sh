@@ -68,8 +68,7 @@ for i in {1..5}; do
     echo "Tempo esgotado. Encerrando processo $WORKLOAD_PID..."
     
     # Tenta encerrar graciosamente, se não, força
-    if kill -0 "$WORKLOAD_PID" 2>/dev/null; then
-        kill "$WORKLOAD_PID"
+    if kill -s KILL "$WORKLOAD_PID" 2>/dev/null; then
         echo "Ciclo $i finalizado com sucesso."
     else
         echo "O processo já havia terminado antes do tempo."
