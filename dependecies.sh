@@ -24,9 +24,13 @@ else
 fi
 
 echo "[INFO] Instalando dependências Python dentro do venv..."
-# Atualiza o pip e instala as libs necessárias para codecarbon.py e tomada.py
+# Atualiza o pip e instala as libs necessárias para coletar_codecarbon.py e tomada.py
 "$VENV_DIR/bin/pip" install --upgrade pip
+"$VENV_DIR/bin/pip" install codecarbon
 "$VENV_DIR/bin/pip" install codecarbon python-kasa
+
+loginctl enable-linger $USER
+sudo loginctl enable-linger $USER
 
 echo "========================================"
 echo " CONFIGURAÇÃO CONCLUÍDA"
